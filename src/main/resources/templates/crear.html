@@ -61,7 +61,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                       <select th:field="*{pais}" id="inputPais" class="form-select">
                           <option th:each="x:${paises}"
                                   th:value="${x.id}"
-                                  th:text="${x.pais}">
+                                  th:text="${x.nombre}">
                           </option>
                       </select>
                   </div>

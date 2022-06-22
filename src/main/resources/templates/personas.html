@@ -31,9 +31,9 @@
                     <td th:text="${user.getApellido2}"></td>
                     <td th:text="${user.getEmail}"></td>
                     <td th:text="${user.getTelefono}"></td>
-                    <td th:text="${user.getPais.getPais}"></td>
+                    <td th:text="${user.getPais}"></td>
                     <td>
-                        <a th:href="@{/editPersona/{id}(id=${user.getId})}">Edit</a>
+                        <a th:href="@{/editpersonas/{id}(id=${user.getId})}">Edit</a>
                     </td>
                     <td>
                         <a th:href="@{/delete/{id}(id=${user.getId})}">Delete</a>
@@ -46,8 +46,7 @@
         <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Logout</button>
         <button sec:authorize="isAnonymous()" th:href="@{~/login}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Login</button>
     </form>
-    <footer th:replace="plantilla/template::footer"></footer>
-
+  
 
 
 </body>

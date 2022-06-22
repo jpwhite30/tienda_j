@@ -5,7 +5,7 @@
 package com.tienda.controller;
 
 import com.tienda.entity.pais;
-import com.tienda.repository.Persona;
+import com.tienda.entity.personas;
 import com.tienda.service.IPaisService;
 import com.tienda.service.IPersonaService;
 import java.util.List;
@@ -32,7 +32,7 @@ public class PersonaController {
 
     @GetMapping("/persona")
     public String index(Model model) {
-        List<Persona> listaPersona = personaService.getAllPersona();
+        List<personas> listaPersona = personaService.getAllPersona();
         model.addAttribute("titulo", "Tabla Personas");
         model.addAttribute("personas", listaPersona);
         return "personas";
@@ -41,20 +41,20 @@ public class PersonaController {
     @GetMapping("/personaN")
     public String crearPersona(Model model) {
         List<pais> listaPaises = paisService.listCountry();
-        model.addAttribute("persona", new Persona());
+        model.addAttribute("persona", new personas());
         model.addAttribute("paises", listaPaises);
         return "crear";
     }
 
     @PostMapping("/save")
-    public String guardarPersona(@ModelAttribute Persona persona) {
+    public String guardarPersona(@ModelAttribute personas persona) {
         personaService.savePersona(persona);
         return "redirect:/persona";
     }
 
     @GetMapping("/editPersona/{id}")
     public String editarPersona(@PathVariable("id") Long idPersona, Model model) {
-        Persona persona = personaService.getPersonaByID(idPersona);
+        personas persona = (personas) personaService.getPersonaByID(idPersona);
         List<pais> listaPaises = paisService.listCountry();
         model.addAttribute("persona", persona);
         model.addAttribute("paises", listaPaises);

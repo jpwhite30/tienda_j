@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.tienda.repository;
+import com.tienda.entity.personas;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 /**
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @author Jason Perez
  */
 @Repository
-public interface PersonaRepository extends CrudRepository<Persona,Long>{
+public interface PersonaRepository extends CrudRepository<personas,Long>{
 
 }
