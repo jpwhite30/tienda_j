@@ -22,54 +22,56 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
+
     @Autowired
     private UserService userDetailService;
-    
+
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
-    public UserService getUserService(){
+    public UserService getUserService() {
         return new UserService();
     }
-    
+
     @Bean
-    DaoAuthenticationProvider authenticationProvider(){
+    DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(getUserService());
         return daoAuthenticationProvider;
     }
-    
+
     @Bean
-    public AuthenticationSuccessHandler appAuthenticationSuccessHandler(){
+    public AuthenticationSuccessHandler appAuthenticationSuccessHandler() {
         return new AppAuthenticationSuccessHandler();
     }
-    
-    public SecurityConfig(UserService userPrincipalDetailsService){
-        this.userDetailService = userPrincipalDetailsService;
+
+    public SecurityConfig(UserService userPrincipalDetailService) {
+        this.userDetailService = userPrincipalDetailService;
     }
-    
+
     @Override
-    protected void configure(AuthenticationManagerBuilder auth){
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
-    
-    //El siguiente método funciona para hacer la autenticación del usuario
+
+    //El siguiente metodo funciona para hacer la autenticacion del usuario
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/persona","/login")
-                .hasRole("ADMIN")
-                .antMatchers("/personasN","/persona","/login")
-                .hasAnyRole("USER", "VENDEDOR", "ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll().defaultSuccessUrl("/persona",true);
+       http.authorizeRequests()
+               .antMatchers("/personas","login","personaN","/save")
+               .hasRole("ADMIN")
+               .antMatchers("/personas", "/","/login")
+               .hasAnyRole("USER", "VENDEDOR", "ADMIN")
+               .anyRequest().authenticated()
+               .and()
+               .formLogin()     .loginPage("/login").permitAll().defaultSuccessUrl("/personas",true);
     }
-    
+    //El siguiente metodo funciona para realizar la autenticacion de accesos
+    //i18n
 }

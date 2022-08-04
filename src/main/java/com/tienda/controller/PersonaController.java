@@ -25,14 +25,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PersonaController {
 
     @Autowired
-    private IPersonaService personaService;
+    private IPersonaService PersonaService;
 
     @Autowired
-    private IPaisService paisService;
+    private IPaisService PaisService;
 
     @GetMapping("/persona")
     public String index(Model model) {
-        List<personas> listaPersona = personaService.getAllPersona();
+        List<personas> listaPersona = PersonaService.getAllPersona();
         model.addAttribute("titulo", "Tabla Personas");
         model.addAttribute("personas", listaPersona);
         return "personas";
@@ -40,7 +40,7 @@ public class PersonaController {
 
     @GetMapping("/personaN")
     public String crearPersona(Model model) {
-        List<pais> listaPaises = paisService.listCountry();
+        List<pais> listaPaises = PaisService.listCountry();
         model.addAttribute("persona", new personas());
         model.addAttribute("paises", listaPaises);
         return "crear";
@@ -48,14 +48,14 @@ public class PersonaController {
 
     @PostMapping("/save")
     public String guardarPersona(@ModelAttribute personas persona) {
-        personaService.savePersona(persona);
+        PersonaService.savePersona(persona);
         return "redirect:/persona";
     }
 
     @GetMapping("/editPersona/{id}")
     public String editarPersona(@PathVariable("id") Long idPersona, Model model) {
-        personas persona = (personas) personaService.getPersonaByID(idPersona);
-        List<pais> listaPaises = paisService.listCountry();
+        personas persona = (personas) PersonaService.getPersonaByID(idPersona);
+        List<pais> listaPaises = PaisService.listCountry();
         model.addAttribute("persona", persona);
         model.addAttribute("paises", listaPaises);
         return "crear";
@@ -63,7 +63,7 @@ public class PersonaController {
 
     @GetMapping("/delete/{id}") //eliminar elemento
     public String eliminarPersona(@PathVariable("id") Long idPersona) {
-        personaService.delete(idPersona);
+        PersonaService.delete(idPersona);
         return "redirect:/persona";
     }
 

@@ -16,26 +16,26 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author Jason Perez
  */
-public class Userprincipal implements UserDetails{
+public class Userprincipal implements UserDetails {
     private personas persona;
-    
+
     public Userprincipal(personas persona){
         this.persona = persona;
     }
-    
+
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
-        List<GrantedAuthority> authorities = new ArrayList();
-        
-        //Extract list of permissions (name)
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        //Extraxt list of permissions (name)
         this.persona.getPermissionList().forEach(p -> {
-           GrantedAuthority authority = new SimpleGrantedAuthority(p);
-           authorities.add(authority);
+            GrantedAuthority authority = new SimpleGrantedAuthority(p);
+            authorities.add(authority);
         });
-        
-        //Extract list of roles (ROLE_name)
+
+        // Extract list of roles (ROLEname)
         this.persona.getRoleList().forEach(r -> {
-            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+ r);
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE" + r);
             authorities.add(authority);
         });
         return authorities;
@@ -70,4 +70,5 @@ public class Userprincipal implements UserDetails{
     public boolean isEnabled() {
         return this.persona.getActive() == 1;
     }
+
 }

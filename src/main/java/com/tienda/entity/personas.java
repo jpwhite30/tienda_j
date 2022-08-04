@@ -129,6 +129,7 @@ public class personas implements Serializable {
     public void setPais(pais pais) {
         this.pais = pais;
     }
+    
 
     public List<String> getRoleList() {
         if (this.permissions.length() > 0) {
